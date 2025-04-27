@@ -1,0 +1,61 @@
+<th:block th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 th:text="${evento.id != null ? 'Editar Evento' : 'Novo Evento'}">Novo Evento</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="${evento.id != null ? '/eventos/' + evento.id : '/eventos'}" method="post" th:object="${evento}">
+                            <input type="hidden" th:field="*{atletica.id}" th:value="${evento.atletica.id}">
+                            <input type="hidden" th:field="*{id}" th:value="${evento.id}">
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Título do Evento</label>
+                                <input type="text" class="form-control" id="titulo" th:field="*{titulo}" 
+                                       th:classappend="${#fields.hasErrors('titulo')} ? 'is-invalid'" required>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descricao" class="form-label">Descrição</label>
+                                <textarea class="form-control" id="descricao" th:field="*{descricao}" rows="3" 
+                                         th:classappend="${#fields.hasErrors('descricao')} ? 'is-invalid'" required></textarea>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}">A descrição deve ter entre 10 e 1000 caracteres</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="dataInicio" class="form-label">Data de Início</label>
+                                <input type="datetime-local" class="form-control" id="dataInicio" th:field="*{dataInicio}" 
+                                       th:value="${evento.dataInicio != null ? #temporals.format(evento.dataInicio, 'yyyy-MM-dd''T''HH:mm') : ''}"
+                                       th:classappend="${#fields.hasErrors('dataInicio')} ? 'is-invalid'" required>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('dataInicio')}" th:errors="*{dataInicio}"></div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="dataFim" class="form-label">Data de Término</label>
+                                <input type="datetime-local" class="form-control" id="dataFim" th:field="*{dataFim}" 
+                                       th:value="${evento.dataFim != null ? #temporals.format(evento.dataFim, 'yyyy-MM-dd''T''HH:mm') : ''}"
+                                       th:classappend="${#fields.hasErrors('dataFim')} ? 'is-invalid'" required>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('dataFim')}" th:errors="*{dataFim}"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="localEvento" class="form-label">Local do Evento</label>
+                                <input type="text" class="form-control" id="localEvento" th:field="*{localEvento}" 
+                                       th:classappend="${#fields.hasErrors('localEvento')} ? 'is-invalid'" required>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('localEvento')}" th:errors="*{localEvento}"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="vagasDisponiveis" class="form-label">Vagas Disponíveis</label>
+                                <input type="number" class="form-control" id="vagasDisponiveis" th:field="*{vagasDisponiveis}" 
+                                       th:classappend="${#fields.hasErrors('vagasDisponiveis')} ? 'is-invalid'" min="1" required>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('vagasDisponiveis')}" th:errors="*{vagasDisponiveis}"></div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary" th:text="${evento.id != null ? 'Salvar Alterações' : 'Criar Evento'}">Criar Evento</button>
+                                <a th:href="@{/eventos}" class="btn btn-secondary">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block> 

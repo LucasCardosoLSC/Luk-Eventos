@@ -1,0 +1,48 @@
+<th:block th:fragment="content">
+    <div class="container mt-5">
+        <h1>Usuários</h1>
+        
+        <div th:if="${mensagem}" class="alert alert-success" role="alert">
+            <span th:text="${mensagem}"></span>
+        </div>
+        
+        <div th:if="${erro}" class="alert alert-danger" role="alert">
+            <span th:text="${erro}"></span>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Perfis</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                        <td th:text="${usuario.id}"></td>
+                        <td th:text="${usuario.nome}"></td>
+                        <td th:text="${usuario.email}"></td>
+                        <td th:text="${usuario.ativo ? 'Ativo' : 'Inativo'}"></td>
+                        <td>
+                            <span th:each="perfil : ${usuario.perfis}" th:text="${perfil.nome}" class="badge badge-info mr-1"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/usuarios/{id}(id=${usuario.id})}" class="btn btn-info btn-sm">Detalhes</a>
+                            <a th:href="@{/usuarios/{id}/editar(id=${usuario.id})}" class="btn btn-warning btn-sm">Editar</a>
+                            <form th:action="@{/usuarios/{id}/desativar(id=${usuario.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja desativar este usuário?')">Desativar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <a th:href="@{/admin}" class="btn btn-primary">Voltar para o Painel</a>
+    </div>
+</th:block> 

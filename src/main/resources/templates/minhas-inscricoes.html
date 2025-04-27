@@ -1,0 +1,42 @@
+<th:block th:fragment="content">
+    <div class="container mt-5">
+        <h1>Minhas Inscrições</h1>
+        
+        <div th:if="${mensagem}" class="alert alert-success" role="alert">
+            <span th:text="${mensagem}"></span>
+        </div>
+        
+        <div th:if="${erro}" class="alert alert-danger" role="alert">
+            <span th:text="${erro}"></span>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Evento</th>
+                        <th>Data/Hora</th>
+                        <th>Local</th>
+                        <th>Data de Inscrição</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="inscricao : ${inscricoes}">
+                        <td th:text="${inscricao.evento.nome}"></td>
+                        <td th:text="${#temporals.format(inscricao.evento.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td th:text="${inscricao.evento.local}"></td>
+                        <td th:text="${#temporals.format(inscricao.dataInscricao, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td th:text="${inscricao.status}"></td>
+                        <td>
+                            <a th:href="@{/eventos/{id}(id=${inscricao.evento.id})}" class="btn btn-info btn-sm">Detalhes do Evento</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <a th:href="@{/eventos}" class="btn btn-primary">Ver Todos os Eventos</a>
+    </div>
+</th:block> 

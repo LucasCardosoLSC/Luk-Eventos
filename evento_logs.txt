@@ -1,0 +1,74 @@
+2025-04-26 17:07:06 - Iniciando processamento do formulário de evento
+2025-04-26 17:07:06 - Dados do evento recebidos: com.lukeventos.models.Evento@3f44c440
+2025-04-26 17:07:06 - Erros de validação encontrados: [Field error in object 'evento' on field 'descricao': rejected value [1232131]; codes [Size.evento.descricao,Size.descricao,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [evento.descricao,descricao]; arguments []; default message [descricao],1000,10]; default message [A descrição deve ter entre 10 e 1000 caracteres]]
+2025-04-26 17:07:06 - Iniciando criação de novo evento
+2025-04-26 17:07:06 - Usuário atual: debug@eventos.com
+2025-04-26 17:07:06 - Atlética definida com ID: 1
+2025-04-26 17:07:06 - Formulário preparado com sucesso
+2025-04-26 17:07:24 - Iniciando processamento do formulário de evento
+2025-04-26 17:07:24 - Dados do evento recebidos: com.lukeventos.models.Evento@274267fd
+2025-04-26 17:07:24 - Tentando salvar evento no banco de dados
+2025-04-26 17:07:24 - Evento salvo com sucesso
+2025-04-26 17:32:37 - Iniciando criação de novo evento
+2025-04-26 17:32:37 - Usuário atual: debug@eventos.com
+2025-04-26 17:32:37 - Atlética definida com ID: 1
+2025-04-26 17:32:37 - Formulário preparado com sucesso
+2025-04-26 17:32:55 - Iniciando processamento do formulário de evento
+2025-04-26 17:32:55 - Dados do evento recebidos: com.lukeventos.models.Evento@526f1634
+2025-04-26 17:32:55 - Tentando salvar evento no banco de dados
+2025-04-26 17:32:55 - Evento salvo com sucesso
+2025-04-26 17:43:03 - Iniciando criação de novo evento
+2025-04-26 17:43:03 - Usuário atual: debug@eventos.com
+2025-04-26 17:43:03 - Atlética definida com ID: 2
+2025-04-26 17:43:03 - Formulário preparado com sucesso
+2025-04-26 17:43:12 - Iniciando criação de novo evento
+2025-04-26 17:43:12 - Usuário atual: debug@eventos.com
+2025-04-26 17:43:12 - Atlética definida com ID: 2
+2025-04-26 17:43:12 - Formulário preparado com sucesso
+2025-04-26 17:46:50 - Iniciando criação de novo evento
+2025-04-26 17:46:50 - Usuário atual: debug@eventos.com
+2025-04-26 17:46:50 - Atlética definida com ID: 1
+2025-04-26 17:46:50 - Formulário preparado com sucesso
+2025-04-26 17:48:10 - Iniciando criação de novo evento
+2025-04-26 17:48:10 - Usuário atual: debug@eventos.com
+2025-04-26 17:48:10 - Atlética definida com ID: 1
+2025-04-26 17:48:10 - Formulário preparado com sucesso
+2025-04-26 17:49:45 - Iniciando processamento do formulário de evento
+2025-04-26 17:49:45 - Dados do evento recebidos: com.lukeventos.models.Evento@63bbbe9a
+2025-04-26 17:49:45 - Erros de validação encontrados: [Field error in object 'evento' on field 'dataFim': rejected value [2025-04-25T17:49]; codes [Future.evento.dataFim,Future.dataFim,Future.java.time.LocalDateTime,Future]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [evento.dataFim,dataFim]; arguments []; default message [dataFim]]; default message [A data de término deve ser futura]]
+2025-04-26 17:49:45 - Iniciando criação de novo evento
+2025-04-26 17:49:45 - Usuário atual: debug@eventos.com
+2025-04-26 17:49:45 - Atlética definida com ID: 1
+2025-04-26 17:49:45 - Formulário preparado com sucesso
+2025-04-26 17:50:01 - Iniciando processamento do formulário de evento
+2025-04-26 17:50:01 - Dados do evento recebidos: com.lukeventos.models.Evento@17502290
+2025-04-26 17:50:01 - Tentando salvar evento no banco de dados
+2025-04-26 17:50:01 - Evento salvo com sucesso
+2025-04-26 18:00:51 - Iniciando criação de novo evento
+2025-04-26 18:00:51 - Usuário atual: debug@eventos.com
+2025-04-26 18:00:51 - Atlética definida com ID: 1
+2025-04-26 18:00:51 - Formulário preparado com sucesso
+2025-04-26 18:11:51 - Iniciando criação de novo evento
+2025-04-26 18:11:51 - Usuário atual: debug@eventos.com
+2025-04-26 18:11:51 - Atlética definida com ID: 1
+2025-04-26 18:11:51 - Formulário preparado com sucesso
+2025-04-26 18:12:02 - Iniciando processamento do formulário de evento
+2025-04-26 18:12:02 - Dados do evento recebidos: com.lukeventos.models.Evento@3f23c8d4
+2025-04-26 18:12:02 - Tentando salvar evento no banco de dados
+2025-04-26 18:12:02 - Evento salvo com sucesso
+2025-04-26 18:17:29 - Iniciando criação de novo evento
+2025-04-26 18:17:29 - Usuário atual: debug@eventos.com
+2025-04-26 18:17:29 - Atlética definida com ID: 1
+2025-04-26 18:17:29 - Formulário preparado com sucesso
+2025-04-26 18:17:36 - Iniciando processamento do formulário de evento
+2025-04-26 18:17:36 - Dados do evento recebidos: com.lukeventos.models.Evento@5e0d8314
+2025-04-26 18:17:36 - Tentando salvar evento no banco de dados
+2025-04-26 18:17:36 - Evento salvo com sucesso
+2025-04-26 18:20:58 - Iniciando criação de novo evento
+2025-04-26 18:20:58 - Usuário atual: debug@eventos.com
+2025-04-26 18:20:58 - Atlética definida com ID: 1
+2025-04-26 18:20:58 - Formulário preparado com sucesso
+2025-04-26 18:21:04 - Iniciando processamento do formulário de evento
+2025-04-26 18:21:04 - Dados do evento recebidos: com.lukeventos.models.Evento@40a99ee5
+2025-04-26 18:21:04 - Tentando salvar evento no banco de dados
+2025-04-26 18:21:04 - Evento salvo com sucesso

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Evento</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 th:text="${evento.titulo}">Título do Evento</h2>
+                    <p class="text-muted" th:text="${#temporals.format(evento.dataInicio, 'dd/MM/yyyy HH:mm')}">Data</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a th:if="${evento.status.name() == 'APROVADO'}" th:href="@{/inscricoes/evento/{id}(id=${evento.id})}" class="btn btn-primary">Inscrever-se</a>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <a th:if="${evento.status.name() == 'PENDENTE'}" th:href="@{/eventos/{id}/aprovar(id=${evento.id})}" class="btn btn-success">Aprovar</a>
+                        <a th:if="${evento.status.name() == 'PENDENTE'}" th:href="@{/eventos/{id}/rejeitar(id=${evento.id})}" class="btn btn-danger">Rejeitar</a>
+                    </div>
+                    <div sec:authorize="hasRole('ATLETICA')">
+                        <a th:if="${evento.status.name() == 'PENDENTE' || evento.status.name() == 'REJEITADO'}" 
+                           th:href="@{/eventos/{id}/excluir(id=${evento.id})}" 
+                           class="btn btn-danger"
+                           onclick="return confirm('Tem certeza que deseja excluir este evento?')">Excluir</a>
+                        <a th:if="${evento.status.name() == 'PENDENTE' || evento.status.name() == 'REJEITADO'}" 
+                           th:href="@{/eventos/{id}/editar(id=${evento.id})}" 
+                           class="btn btn-warning">Editar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Detalhes do Evento</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Local:</strong> <span th:text="${evento.localEvento}">Local</span></p>
+                                    <p><strong>Data de Início:</strong> <span th:text="${#temporals.format(evento.dataInicio, 'dd/MM/yyyy HH:mm')}">Data</span></p>
+                                    <p><strong>Data de Término:</strong> <span th:text="${#temporals.format(evento.dataFim, 'dd/MM/yyyy HH:mm')}">Data</span></p>
+                                    <p><strong>Status:</strong> 
+                                        <span th:if="${evento.status.name() == 'APROVADO'}" class="badge bg-success">Aprovado</span>
+                                        <span th:if="${evento.status.name() == 'PENDENTE'}" class="badge bg-warning text-dark">Pendente</span>
+                                        <span th:if="${evento.status.name() == 'REJEITADO'}" class="badge bg-danger">Rejeitado</span>
+                                        <span th:if="${evento.feedback != null && evento.status.name() == 'REJEITADO'}" 
+                                              class="ms-2" 
+                                              th:title="${evento.feedback}">
+                                            <i class="bi bi-info-circle" 
+                                               data-bs-toggle="tooltip" 
+                                               data-bs-placement="top"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Atlética:</strong> <span th:text="${evento.atletica.nome}">Nome da Atlética</span></p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <h5>Descrição</h5>
+                                <p th:text="${evento.descricao}">Descrição do evento</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4" sec:authorize="hasRole('ATLETICA')">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Inscrições</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="inscricao : ${evento.inscricoes}">
+                                            <td th:text="${inscricao.usuario.nome}">Nome</td>
+                                            <td th:text="${inscricao.usuario.email}">Email</td>
+                                            <td>
+                                                <span th:if="${inscricao.status.name() == 'CONFIRMADA'}" class="badge bg-success">Confirmada</span>
+                                                <span th:if="${inscricao.status.name() == 'PENDENTE'}" class="badge bg-warning text-dark">Pendente</span>
+                                                <span th:if="${inscricao.status.name() == 'CANCELADA'}" class="badge bg-danger">Cancelada</span>
+                                            </td>
+                                            <td>
+                                                <a th:if="${inscricao.status.name() == 'PENDENTE'}" th:href="@{/inscricoes/{id}/confirmar(id=${inscricao.id})}" class="btn btn-sm btn-success">Confirmar</a>
+                                                <a th:if="${inscricao.status.name() == 'PENDENTE'}" th:href="@{/inscricoes/{id}/cancelar(id=${inscricao.id})}" class="btn btn-sm btn-danger">Cancelar</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html> 

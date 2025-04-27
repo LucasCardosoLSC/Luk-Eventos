@@ -1,0 +1,57 @@
+<th:block th:fragment="content">
+    <div class="container">
+        <h1>Gerenciar Eventos</h1>
+        
+        <div th:if="${mensagem}" class="alert alert-success" role="alert">
+            <span th:text="${mensagem}"></span>
+        </div>
+        
+        <div th:if="${erro}" class="alert alert-danger" role="alert">
+            <span th:text="${erro}"></span>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Data de Início</th>
+                        <th>Local</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="evento : ${eventos}">
+                        <td th:text="${evento.id}"></td>
+                        <td th:text="${evento.titulo}"></td>
+                        <td th:text="${#temporals.format(evento.dataInicio, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td th:text="${evento.localEvento}"></td>
+                        <td>
+                            <span th:if="${evento.status == 'APROVADO'}" class="badge bg-success">Aprovado</span>
+                            <span th:if="${evento.status == 'PENDENTE'}" class="badge bg-warning">Pendente</span>
+                            <span th:if="${evento.status == 'REJEITADO'}" class="badge bg-danger">Rejeitado</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/eventos/{id}(id=${evento.id})}" class="btn btn-info btn-sm">Detalhes</a>
+                            <a th:href="@{/eventos/{id}/editar(id=${evento.id})}" class="btn btn-warning btn-sm">Editar</a>
+                            <form th:action="@{/eventos/{id}/aprovar(id=${evento.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-success btn-sm">Aprovar</button>
+                            </form>
+                            <form th:action="@{/eventos/{id}/rejeitar(id=${evento.id})}" method="post" style="display: inline;">
+                                <input type="text" name="feedback" class="form-control form-control-sm d-inline-block" style="width: 200px;" placeholder="Motivo da rejeição" required>
+                                <button type="submit" class="btn btn-danger btn-sm">Rejeitar</button>
+                            </form>
+                            <form th:action="@{/eventos/{id}/deletar(id=${evento.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este evento?')">Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <a th:href="@{/admin}" class="btn btn-primary">Voltar para o Painel</a>
+    </div>
+</th:block> 

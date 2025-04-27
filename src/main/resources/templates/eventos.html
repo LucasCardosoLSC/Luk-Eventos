@@ -1,0 +1,54 @@
+<th:block th:fragment="content">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h2>Eventos</h2>
+            </div>
+            <div class="col-md-4 text-end" sec:authorize="hasRole('ATLETICA')">
+                <a th:href="@{/eventos/novo}" class="btn btn-primary">Criar Evento</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Data de Início</th>
+                                        <th>Local</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="evento : ${eventos}">
+                                        <td th:text="${evento.titulo}">Título do Evento</td>
+                                        <td th:text="${#temporals.format(evento.dataInicio, 'dd/MM/yyyy HH:mm')}">Data</td>
+                                        <td th:text="${evento.localEvento}">Local</td>
+                                        <td>
+                                            <span th:if="${evento.status == 'APROVADO'}" class="badge bg-success">Aprovado</span>
+                                            <span th:if="${evento.status == 'PENDENTE'}" class="badge bg-warning">Pendente</span>
+                                            <span th:if="${evento.status == 'REJEITADO'}" class="badge bg-danger">Rejeitado</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/eventos/{id}(id=${evento.id})}" class="btn btn-sm btn-info">Detalhes</a>
+                                            <a th:if="${evento.status == 'APROVADO'}" th:href="@{/inscricoes/evento/{id}(id=${evento.id})}" class="btn btn-sm btn-primary">Inscrever-se</a>
+                                            <div sec:authorize="hasRole('ADMIN')">
+                                                <a th:if="${evento.status == 'PENDENTE'}" th:href="@{/eventos/{id}/aprovar(id=${evento.id})}" class="btn btn-sm btn-success">Aprovar</a>
+                                                <a th:if="${evento.status == 'PENDENTE'}" th:href="@{/eventos/{id}/rejeitar(id=${evento.id})}" class="btn btn-sm btn-danger">Rejeitar</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block> 

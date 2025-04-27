@@ -1,0 +1,178 @@
+<th:block th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Painel Administrativo</h2>
+            </div>
+        </div>
+
+        <!-- Status do Projeto -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Status do Projeto</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total de Usuários</h5>
+                                        <p class="card-text display-4" th:text="${totalUsuarios}">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total de Atléticas</h5>
+                                        <p class="card-text display-4" th:text="${totalAtleticas}">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total de Eventos</h5>
+                                        <p class="card-text display-4" th:text="${totalEventos}">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-warning text-white">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Eventos Pendentes</h5>
+                                        <p class="card-text display-4" th:text="${eventosPendentesCount}">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Eventos Pendentes e Rejeitados -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Eventos Pendentes e Rejeitados</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="eventosTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pendentes-tab" data-bs-toggle="tab" data-bs-target="#pendentes" type="button" role="tab">Pendentes</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="rejeitados-tab" data-bs-toggle="tab" data-bs-target="#rejeitados" type="button" role="tab">Rejeitados</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-3" id="eventosTabContent">
+                            <!-- Eventos Pendentes -->
+                            <div class="tab-pane fade show active" id="pendentes" role="tabpanel">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Título</th>
+                                                <th>Atlética</th>
+                                                <th>Data</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="evento : ${eventosPendentes}">
+                                                <td th:text="${evento.titulo}">Título</td>
+                                                <td th:text="${evento.atletica.nome}">Atlética</td>
+                                                <td th:text="${#temporals.format(evento.dataInicio, 'dd/MM/yyyy HH:mm')}">Data</td>
+                                                <td>
+                                                    <form th:action="@{/admin/eventos/{id}/aprovar(id=${evento.id})}" method="post" style="display: inline;">
+                                                        <button type="submit" class="btn btn-sm btn-success">Aprovar</button>
+                                                    </form>
+                                                    <form th:action="@{/admin/eventos/{id}/rejeitar(id=${evento.id})}" method="post" style="display: inline;">
+                                                        <input type="text" name="feedback" class="form-control form-control-sm d-inline-block w-auto" placeholder="Feedback" required>
+                                                        <button type="submit" class="btn btn-sm btn-danger">Rejeitar</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- Eventos Rejeitados -->
+                            <div class="tab-pane fade" id="rejeitados" role="tabpanel">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Título</th>
+                                                <th>Atlética</th>
+                                                <th>Data</th>
+                                                <th>Feedback</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="evento : ${eventosRejeitados}">
+                                                <td th:text="${evento.titulo}">Título</td>
+                                                <td th:text="${evento.atletica.nome}">Atlética</td>
+                                                <td th:text="${#temporals.format(evento.dataInicio, 'dd/MM/yyyy HH:mm')}">Data</td>
+                                                <td th:text="${evento.feedback}">Feedback</td>
+                                                <td>
+                                                    <form th:action="@{/admin/eventos/{id}/aprovar(id=${evento.id})}" method="post" style="display: inline;">
+                                                        <button type="submit" class="btn btn-sm btn-success">Aprovar</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Usuários -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Usuários</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Perfil</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="usuario : ${usuarios}">
+                                        <td th:text="${usuario.nome}">Nome</td>
+                                        <td th:text="${usuario.email}">Email</td>
+                                        <td th:text="${usuario.perfis[0].nome}">Perfil</td>
+                                        <td>
+                                            <span th:if="${usuario.ativo}" class="badge bg-success">Ativo</span>
+                                            <span th:unless="${usuario.ativo}" class="badge bg-danger">Inativo</span>
+                                        </td>
+                                        <td>
+                                            <a th:if="${usuario.ativo}" th:href="@{/api/usuarios/{id}/desativar(id=${usuario.id})}" class="btn btn-sm btn-danger">Desativar</a>
+                                            <a th:unless="${usuario.ativo}" th:href="@{/api/usuarios/{id}/ativar(id=${usuario.id})}" class="btn btn-sm btn-success">Ativar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block> 

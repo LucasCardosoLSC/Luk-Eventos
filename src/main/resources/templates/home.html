@@ -1,0 +1,42 @@
+<th:block th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mb-4">
+                <h1>Bem-vindo ao Sistema de Eventos</h1>
+                <p class="lead">Gerencie seus eventos universitários de forma simples e eficiente</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Eventos</h5>
+                        <p class="card-text">Confira os eventos disponíveis e inscreva-se.</p>
+                        <a th:href="@{/eventos}" class="btn btn-primary">Ver Eventos</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" sec:authorize="hasRole('UNIVERSITARIO')">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Carteirinha</h5>
+                        <p class="card-text">Envie sua carteirinha para validação.</p>
+                        <a th:href="@{/carteirinha}" class="btn btn-primary">Enviar Carteirinha</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" sec:authorize="hasRole('ATLETICA')">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Meus Eventos</h5>
+                        <p class="card-text">Gerencie os eventos da sua atlética.</p>
+                        <a th:href="@{/meus-eventos}" class="btn btn-primary">Gerenciar Eventos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block> 

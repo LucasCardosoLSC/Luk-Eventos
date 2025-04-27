@@ -1,0 +1,45 @@
+<th:block th:fragment="content">
+    <div class="container mt-5">
+        <h1>Carteirinhas Pendentes</h1>
+        
+        <div th:if="${mensagem}" class="alert alert-success" role="alert">
+            <span th:text="${mensagem}"></span>
+        </div>
+        
+        <div th:if="${erro}" class="alert alert-danger" role="alert">
+            <span th:text="${erro}"></span>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuário</th>
+                        <th>Data de Upload</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="carteirinha : ${carteirinhas}">
+                        <td th:text="${carteirinha.id}"></td>
+                        <td th:text="${carteirinha.usuario.nome}"></td>
+                        <td th:text="${#temporals.format(carteirinha.dataUpload, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td th:text="${carteirinha.status}"></td>
+                        <td>
+                            <form th:action="@{/carteirinha/{id}/aprovar(id=${carteirinha.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-success btn-sm">Aprovar</button>
+                            </form>
+                            <form th:action="@{/carteirinha/{id}/rejeitar(id=${carteirinha.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Rejeitar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <a th:href="@{/admin}" class="btn btn-primary">Voltar para o Painel</a>
+    </div>
+</th:block> 

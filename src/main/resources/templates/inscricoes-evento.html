@@ -1,0 +1,47 @@
+<th:block th:fragment="content">
+    <div class="container mt-5">
+        <h1>Inscrições do Evento: <span th:text="${evento.nome}"></span></h1>
+        
+        <div th:if="${mensagem}" class="alert alert-success" role="alert">
+            <span th:text="${mensagem}"></span>
+        </div>
+        
+        <div th:if="${erro}" class="alert alert-danger" role="alert">
+            <span th:text="${erro}"></span>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuário</th>
+                        <th>Data de Inscrição</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="inscricao : ${inscricoes}">
+                        <td th:text="${inscricao.id}"></td>
+                        <td th:text="${inscricao.usuario.nome}"></td>
+                        <td th:text="${#temporals.format(inscricao.dataInscricao, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td th:text="${inscricao.status}"></td>
+                        <td>
+                            <form th:action="@{/inscricoes/{id}/status(id=${inscricao.id})}" method="post" style="display: inline;">
+                                <select name="status" class="form-control form-control-sm" style="width: auto; display: inline-block;">
+                                    <option value="PENDENTE">Pendente</option>
+                                    <option value="APROVADO">Aprovado</option>
+                                    <option value="REJEITADO">Rejeitado</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm">Atualizar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <a th:href="@{/eventos/{id}(id=${evento.id})}" class="btn btn-primary">Voltar para o Evento</a>
+    </div>
+</th:block> 
